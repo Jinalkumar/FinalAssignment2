@@ -1,0 +1,62 @@
+<% include ../partials/header.ejs %>
+
+
+<style>
+body {
+    background-color: #c0e8e7;
+ }
+ </style>
+ 
+<main class="container">
+    <h1 class="centerize">Business Contact</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/businesscontacts/add" title="Add Contact"><i class="fa fa-plus-circle"></i> Add New Contact</a>
+        </div> <!-- panel-heading -->
+        <% if (businesscontacts.length > 0) { %>
+        <div class="panel-body table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Contact Name</th>
+                        <th>Contact Number</th>
+                        <th>Email Address</th>
+                        <th>Date Created</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                </tbody>
+                <% for (var i = 0; i < businesscontacts.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= businesscontacts[i].name %>
+                    </td>
+                    <td>
+                        <%= businesscontacts[i].phone %>
+                    </td>
+                    <td>
+                        <%= businesscontacts[i].email %>
+                    </td>
+                    <td>
+                        <% var date = new Date(businesscontacts[i].created);
+                         var dateString = date.toDateString() + " " + date.toLocaleTimeString(); %>
+                        <%= dateString %>
+                    </td>                    
+                    <td>
+                        <a href="/businesscontacts/<%= businesscontacts[i]._id %>" title="Edit" class="btn btn-primary">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                        <a href="/businesscontacts/delete/<%= businesscontacts[i]._id %>" title="Delete" onclick="return confirm('Are you sure you want to delete this?');" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>   
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div> <!-- panel-body -->
+        <% } %>
+    </div><!-- panel panel-default -->
+
+</main>
+<% include ../partials/footer.ejs %>
